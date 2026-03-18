@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <meta charset="UTF-8">
@@ -44,14 +43,16 @@ color:white;
 border:none;
 padding:12px;
 border-radius:5px;
-cursor:pointer;
 margin-top:10px;
+cursor:pointer;
 }
 
 #editor{
 display:none;
 margin-top:40px;
 }
+
+/* PAGINA */
 
 .pagina{
 width:210mm;
@@ -60,6 +61,7 @@ position:relative;
 margin:auto;
 background:white;
 border:1px solid #ccc;
+page-break-after:always;
 }
 
 .formbg{
@@ -69,16 +71,20 @@ top:0;
 left:0;
 }
 
+/* CAMPOS */
+
 .campo{
 position:absolute;
 font-size:14px;
 font-weight:bold;
-letter-spacing:2px;
+letter-spacing:3px;
 background:rgba(255,255,0,0.3);
-padding:2px;
 cursor:move;
+padding:2px;
 white-space:nowrap;
 }
+
+/* GRID */
 
 .grid{
 position:absolute;
@@ -99,9 +105,11 @@ bottom:10px;
 right:10px;
 background:black;
 color:white;
-padding:6px;
+padding:8px;
 font-size:12px;
 }
+
+/* PRINT */
 
 @media print{
 
@@ -203,20 +211,51 @@ Sistema de Requisição de Mamografia
 
 <!-- CAMPOS -->
 
-<div class="campo" id="r_nome" style="top:200px;left:120px"></div>
-<div class="campo" id="r_cpf" style="top:230px;left:120px"></div>
-<div class="campo" id="r_sus" style="top:260px;left:120px"></div>
-<div class="campo" id="r_mae" style="top:290px;left:120px"></div>
-<div class="campo" id="r_municipio" style="top:320px;left:120px"></div>
-<div class="campo" id="r_unidade" style="top:350px;left:120px"></div>
-<div class="campo" id="r_logradouro" style="top:380px;left:120px"></div>
-<div class="campo" id="r_bairro" style="top:410px;left:120px"></div>
-<div class="campo" id="r_cep" style="top:440px;left:120px"></div>
-<div class="campo" id="r_telefone" style="top:470px;left:120px"></div>
+<div class="campo" id="r_uf" style="top:40px;left:50px"></div>
+<div class="campo" id="r_cnes" style="top:60px;left:50px"></div>
+<div class="campo" id="r_unidade" style="top:80px;left:50px"></div>
+<div class="campo" id="r_cod_municipio" style="top:100px;left:50px"></div>
+<div class="campo" id="r_municipio" style="top:120px;left:50px"></div>
+<div class="campo" id="r_prontuario" style="top:140px;left:50px"></div>
+
+<div class="campo" id="r_sus" style="top:170px;left:50px"></div>
+<div class="campo" id="r_nome" style="top:190px;left:50px"></div>
+<div class="campo" id="r_apelido" style="top:210px;left:50px"></div>
+<div class="campo" id="r_mae" style="top:230px;left:50px"></div>
+
+<div class="campo" id="r_rg" style="top:260px;left:50px"></div>
+<div class="campo" id="r_orgao" style="top:280px;left:50px"></div>
+<div class="campo" id="r_uf_doc" style="top:300px;left:50px"></div>
+<div class="campo" id="r_cpf" style="top:320px;left:50px"></div>
+
+<div class="campo" id="r_nascimento" style="top:350px;left:50px"></div>
+<div class="campo" id="r_idade" style="top:370px;left:50px"></div>
+<div class="campo" id="r_nacionalidade" style="top:390px;left:50px"></div>
+
+<div class="campo" id="r_logradouro" style="top:420px;left:50px"></div>
+<div class="campo" id="r_numero" style="top:440px;left:50px"></div>
+<div class="campo" id="r_complemento" style="top:460px;left:50px"></div>
+<div class="campo" id="r_bairro" style="top:480px;left:50px"></div>
+
+<div class="campo" id="r_uf_end" style="top:510px;left:50px"></div>
+<div class="campo" id="r_cod_mun_end" style="top:530px;left:50px"></div>
+<div class="campo" id="r_mun_end" style="top:550px;left:50px"></div>
+
+<div class="campo" id="r_cep" style="top:580px;left:50px"></div>
+<div class="campo" id="r_ddd" style="top:600px;left:50px"></div>
+<div class="campo" id="r_telefone" style="top:620px;left:50px"></div>
+
+<div class="campo" id="r_referencia" style="top:650px;left:50px"></div>
+
+<div class="campo" id="r_ultima_mamo" style="top:680px;left:50px"></div>
+<div class="campo" id="r_data_solic" style="top:700px;left:50px"></div>
+<div class="campo" id="r_examinador" style="top:720px;left:50px"></div>
+<div class="campo" id="r_num_exame" style="top:740px;left:50px"></div>
+<div class="campo" id="r_num_servico" style="top:760px;left:50px"></div>
 
 </div>
 
-<center style="margin-top:20px">
+<center style="margin-top:30px">
 <button onclick="window.print()">Imprimir</button>
 </center>
 
@@ -226,33 +265,53 @@ Sistema de Requisição de Mamografia
 
 <script>
 
-/* GERAR REQUISIÇÃO */
+/* ESCREVER */
+
+function escrever(i,c){
+
+let input=document.getElementById(i)
+let campo=document.getElementById(c)
+
+if(input && campo){
+campo.innerText=input.value.toUpperCase()
+}
+
+}
+
+/* GERAR */
 
 function gerar(){
 
-document.querySelectorAll("input").forEach(function(input){
+let campos=[
 
-let campo=document.getElementById("r_"+input.id)
+"uf","cnes","unidade","cod_municipio","municipio","prontuario",
+"sus","nome","apelido","mae",
+"rg","orgao","uf_doc","cpf",
+"nascimento","idade","nacionalidade",
+"logradouro","numero","complemento","bairro",
+"uf_end","cod_mun_end","mun_end",
+"cep","ddd","telefone","referencia",
+"ultima_mamo","data_solic","examinador","num_exame","num_servico"
 
-if(campo){
-campo.innerText=input.value.toUpperCase()
-}
+]
+
+campos.forEach(function(c){
+
+escrever(c,"r_"+c)
 
 })
 
 document.getElementById("editor").style.display="block"
 
-window.scrollTo(0,document.body.scrollHeight)
-
 }
 
-/* ARRASTAR CAMPOS */
+/* DRAG */
 
 let campoSelecionado=null
 let offsetX=0
 let offsetY=0
 
-document.querySelectorAll(".campo").forEach(function(campo){
+document.querySelectorAll(".campo").forEach(campo=>{
 
 campo.addEventListener("mousedown",function(e){
 
@@ -291,5 +350,4 @@ campoSelecionado=null
 </script>
 
 </body>
-
 </html>
