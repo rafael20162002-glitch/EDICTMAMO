@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Sistema de Requisição de Mamografia</title>
+<title>Requisição de Mamografia</title>
 
 <style>
 
@@ -33,8 +33,8 @@ border-radius:8px;
 
 input{
 width:100%;
-padding:8px;
-margin-bottom:8px;
+padding:10px;
+margin-bottom:10px;
 text-transform:uppercase;
 }
 
@@ -43,12 +43,10 @@ background:#0066cc;
 color:white;
 border:none;
 padding:12px;
+font-size:16px;
 border-radius:5px;
 cursor:pointer;
-margin-top:10px;
 }
-
-/* EDITOR */
 
 #editor{
 display:none;
@@ -61,19 +59,11 @@ margin-top:40px;
 width:210mm;
 height:297mm;
 position:relative;
-margin:40px auto;
+margin:auto;
 background:white;
 border:1px solid #ccc;
-overflow:hidden;
+page-break-after:always;
 }
-
-/* QUEBRA DE PAGINA NA IMPRESSÃO */
-
-.pagina + .pagina{
-page-break-before:always;
-}
-
-/* FORMULARIO */
 
 .formbg{
 position:absolute;
@@ -93,11 +83,11 @@ font-weight:bold;
 letter-spacing:6px;
 white-space:nowrap;
 cursor:move;
-background:rgba(255,255,0,0.25);
+background:rgba(255,255,0,0.3);
 padding:2px;
 }
 
-/* GRID */
+/* GRID DE AJUDA */
 
 .grid{
 position:absolute;
@@ -120,7 +110,7 @@ bottom:10px;
 right:10px;
 background:black;
 color:white;
-padding:6px;
+padding:8px;
 font-size:12px;
 }
 
@@ -134,11 +124,6 @@ visibility:hidden;
 
 #editor, #editor *{
 visibility:visible;
-}
-
-.pagina{
-margin:0;
-border:none;
 }
 
 .grid{
@@ -169,7 +154,6 @@ Sistema de Requisição de Mamografia
 
 <h3>Dados da paciente</h3>
 
-<input id="sus" placeholder="Cartão SUS">
 <input id="nome" placeholder="Nome da paciente">
 
 <button onclick="gerar()">Gerar Requisição</button>
@@ -186,9 +170,9 @@ Sistema de Requisição de Mamografia
 
 <div class="grid"></div>
 
-<div class="campo" id="r_sus" style="left:53.25px; top:225.5px;"></div>
+<!-- NOME DA PACIENTE -->
 
-<div class="campo" id="r_nome" style="left:53.25px; top:255.5px;"></div>
+<div class="campo" id="r_nome" style="left:54.25mm; top:227.125mm;"></div>
 
 </div>
 
@@ -202,7 +186,7 @@ Sistema de Requisição de Mamografia
 
 </div>
 
-<center>
+<center style="margin-top:20px">
 <button onclick="window.print()">Imprimir</button>
 </center>
 
@@ -216,11 +200,9 @@ Sistema de Requisição de Mamografia
 
 function gerar(){
 
-let sus=document.getElementById("sus").value
-let nome=document.getElementById("nome").value
+let nome = document.getElementById("nome").value
 
-document.getElementById("r_sus").innerText=sus.toUpperCase()
-document.getElementById("r_nome").innerText=nome.toUpperCase()
+document.getElementById("r_nome").innerText = nome.toUpperCase()
 
 document.getElementById("editor").style.display="block"
 
@@ -273,4 +255,5 @@ campoSelecionado=null
 </script>
 
 </body>
+
 </html>
