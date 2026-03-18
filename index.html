@@ -4,19 +4,18 @@
 <head>
 
 <meta charset="UTF-8">
-
-<title>Requisição de Mamografia</title>
+<title>Sistema de Requisição de Mamografia</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f4f6f9;
+background:#eef2f7;
 margin:0;
 }
 
 header{
-background:#004080;
+background:#003366;
 color:white;
 padding:20px;
 text-align:center;
@@ -24,7 +23,7 @@ font-size:22px;
 }
 
 .container{
-max-width:800px;
+max-width:900px;
 margin:auto;
 background:white;
 padding:30px;
@@ -41,31 +40,24 @@ gap:15px;
 
 input{
 padding:10px;
-width:100%;
 border:1px solid #ccc;
-border-radius:5px;
+border-radius:4px;
+width:100%;
 }
 
 button{
-background:#0073e6;
+background:#0066cc;
 color:white;
 border:none;
 padding:12px;
 font-size:16px;
-border-radius:6px;
+border-radius:5px;
 cursor:pointer;
 margin-top:15px;
 }
 
 button:hover{
-background:#005bb5;
-}
-
-#documento{
-display:none;
-margin-top:40px;
-background:white;
-padding:40px;
+background:#004a99;
 }
 
 footer{
@@ -74,6 +66,38 @@ margin-top:40px;
 padding:20px;
 color:#777;
 }
+
+/* DOCUMENTO */
+
+#documento{
+display:none;
+margin-top:40px;
+}
+
+.pagina{
+width:210mm;
+height:297mm;
+position:relative;
+margin:auto;
+background:white;
+page-break-after:always;
+}
+
+.formbg{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+opacity:0.25;
+}
+
+.campo{
+position:absolute;
+font-size:14px;
+font-weight:bold;
+}
+
+/* impressão */
 
 @media print{
 
@@ -87,8 +111,8 @@ visibility:visible;
 
 #documento{
 position:absolute;
-top:0;
 left:0;
+top:0;
 }
 
 }
@@ -100,9 +124,7 @@ left:0;
 <body>
 
 <header>
-
 Sistema de Requisição de Mamografia
-
 </header>
 
 <div class="container">
@@ -123,39 +145,71 @@ Sistema de Requisição de Mamografia
 
 <input id="telefone" placeholder="Telefone">
 
+<input id="endereco" placeholder="Endereço">
+
+<input id="mae" placeholder="Nome da mãe">
+
 </div>
 
 <button onclick="gerar()">Gerar Requisição</button>
 
 </div>
 
+<footer>
+Sistema interno de requisições médicas
+</footer>
+
 <div id="documento">
 
-<h2>REQUISIÇÃO DE MAMOGRAFIA</h2>
+<!-- PAGINA 1 -->
 
-<p><b>Nome:</b> <span id="r_nome"></span></p>
+<div class="pagina">
 
-<p><b>CPF:</b> <span id="r_cpf"></span></p>
+<img src="formulario1.png" class="formbg">
 
-<p><b>Cartão SUS:</b> <span id="r_sus"></span></p>
+<div class="campo" style="top:240px;left:120px" id="r_nome"></div>
 
-<p><b>Nascimento:</b> <span id="r_nascimento"></span></p>
+<div class="campo" style="top:260px;left:120px" id="r_cpf"></div>
 
-<p><b>Município:</b> <span id="r_municipio"></span></p>
+<div class="campo" style="top:280px;left:120px" id="r_sus"></div>
 
-<p><b>Telefone:</b> <span id="r_telefone"></span></p>
+<div class="campo" style="top:300px;left:120px" id="r_nascimento"></div>
 
-<br>
+<div class="campo" style="top:320px;left:120px" id="r_municipio"></div>
 
-<button onclick="window.print()">Imprimir</button>
+<div class="campo" style="top:340px;left:120px" id="r_telefone"></div>
+
+<div class="campo" style="top:360px;left:120px" id="r_endereco"></div>
+
+<div class="campo" style="top:380px;left:120px" id="r_mae"></div>
 
 </div>
 
-<footer>
+<!-- PAGINA 2 -->
 
-Sistema interno de requisições médicas
+<div class="pagina">
 
-</footer>
+<img src="formulario2.png" class="formbg">
+
+<div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);text-align:center">
+
+<img src="hujm-logo.png" width="120">
+
+<br>
+
+Hospital Universitário Júlio Müller
+
+</div>
+
+</div>
+
+<br>
+
+<center>
+<button onclick="window.print()">Imprimir Requisição</button>
+</center>
+
+</div>
 
 <script>
 
@@ -179,6 +233,12 @@ document.getElementById("municipio").value
 document.getElementById("r_telefone").innerText =
 document.getElementById("telefone").value
 
+document.getElementById("r_endereco").innerText =
+document.getElementById("endereco").value
+
+document.getElementById("r_mae").innerText =
+document.getElementById("mae").value
+
 document.getElementById("documento").style.display="block"
 
 window.scrollTo(0,document.body.scrollHeight)
@@ -189,4 +249,5 @@ window.scrollTo(0,document.body.scrollHeight)
 
 </body>
 
+</html>
 </html>
