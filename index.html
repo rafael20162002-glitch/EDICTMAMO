@@ -70,22 +70,25 @@ left:0;
 width:100%;
 }
 
-/* TEXTO EM CAIXAS */
+/* CAIXAS DE TEXTO */
 
-.caixas{
+.campo{
 position:absolute;
 font-size:14px;
 font-weight:bold;
-letter-spacing:10px;
+letter-spacing:2px;
+max-width:600px;
 white-space:nowrap;
 }
 
-/* CHECK */
+/* CHECKBOX */
 
 .check{
 position:absolute;
-font-size:22px;
+font-size:20px;
 }
+
+/* IMPRESSAO */
 
 @media print{
 
@@ -93,7 +96,7 @@ body *{
 visibility:hidden;
 }
 
-#editor,#editor *{
+#editor, #editor *{
 visibility:visible;
 }
 
@@ -117,25 +120,33 @@ Sistema de Requisição de Mamografia
 
 <h3>Dados da paciente</h3>
 
-<input id="nome" placeholder="Nome">
+<input id="nome" placeholder="Nome completo">
 
 <input id="cpf" placeholder="CPF">
 
 <input id="sus" placeholder="Cartão SUS">
 
-<input id="nascimento" placeholder="Data nascimento">
+<input id="nascimento" placeholder="Data de nascimento">
 
 <input id="mae" placeholder="Nome da mãe">
 
-<h3>Unidade</h3>
+<h3>Dados da unidade</h3>
+
+<input id="uf" placeholder="UF">
 
 <input id="municipio" placeholder="Município">
 
 <input id="unidade" placeholder="Unidade de saúde">
 
+<input id="prontuario" placeholder="Número do prontuário">
+
 <h3>Endereço</h3>
 
 <input id="logradouro" placeholder="Logradouro">
+
+<input id="numero" placeholder="Número">
+
+<input id="complemento" placeholder="Complemento">
 
 <input id="bairro" placeholder="Bairro">
 
@@ -148,6 +159,8 @@ Sistema de Requisição de Mamografia
 <label><input type="checkbox" id="rastreamento"> Rastreamento</label><br>
 <label><input type="checkbox" id="diagnostica"> Diagnóstica</label><br>
 <label><input type="checkbox" id="nodulo"> Nódulo palpável</label><br>
+<label><input type="checkbox" id="secrecao"> Secreção papilar</label><br>
+<label><input type="checkbox" id="historico"> Histórico familiar</label><br>
 
 <br>
 
@@ -163,33 +176,45 @@ Sistema de Requisição de Mamografia
 
 <img src="formulario1.png" class="formbg">
 
-<div class="caixas" id="r_nome" style="top:240px;left:150px"></div>
+<div class="campo" id="r_nome" style="top:240px;left:150px;width:500px"></div>
 
-<div class="caixas" id="r_cpf" style="top:270px;left:150px"></div>
+<div class="campo" id="r_cpf" style="top:270px;left:150px"></div>
 
-<div class="caixas" id="r_sus" style="top:300px;left:150px"></div>
+<div class="campo" id="r_sus" style="top:300px;left:150px"></div>
 
-<div class="caixas" id="r_nascimento" style="top:330px;left:150px"></div>
+<div class="campo" id="r_nascimento" style="top:330px;left:150px"></div>
 
-<div class="caixas" id="r_mae" style="top:360px;left:150px"></div>
+<div class="campo" id="r_mae" style="top:360px;left:150px;width:500px"></div>
 
-<div class="caixas" id="r_municipio" style="top:390px;left:150px"></div>
+<div class="campo" id="r_municipio" style="top:390px;left:150px"></div>
 
-<div class="caixas" id="r_unidade" style="top:420px;left:150px"></div>
+<div class="campo" id="r_unidade" style="top:420px;left:150px;width:400px"></div>
 
-<div class="caixas" id="r_logradouro" style="top:450px;left:150px"></div>
+<div class="campo" id="r_prontuario" style="top:450px;left:150px"></div>
 
-<div class="caixas" id="r_bairro" style="top:480px;left:150px"></div>
+<div class="campo" id="r_logradouro" style="top:480px;left:150px;width:400px"></div>
 
-<div class="caixas" id="r_cep" style="top:510px;left:150px"></div>
+<div class="campo" id="r_numero" style="top:510px;left:150px"></div>
 
-<div class="caixas" id="r_telefone" style="top:540px;left:150px"></div>
+<div class="campo" id="r_complemento" style="top:540px;left:150px"></div>
+
+<div class="campo" id="r_bairro" style="top:570px;left:150px"></div>
+
+<div class="campo" id="r_cep" style="top:600px;left:150px"></div>
+
+<div class="campo" id="r_telefone" style="top:630px;left:150px"></div>
+
+<!-- CHECKS -->
 
 <div class="check" id="c_rastreamento" style="top:700px;left:120px">X</div>
 
 <div class="check" id="c_diagnostica" style="top:730px;left:120px">X</div>
 
 <div class="check" id="c_nodulo" style="top:760px;left:120px">X</div>
+
+<div class="check" id="c_secrecao" style="top:790px;left:120px">X</div>
+
+<div class="check" id="c_historico" style="top:820px;left:120px">X</div>
 
 </div>
 
@@ -209,45 +234,52 @@ Sistema de Requisição de Mamografia
 
 <script>
 
-function escreverCaixas(input,campo){
+function escrever(input,campo){
 
-let texto=document.getElementById(input).value.toUpperCase()
+let valor=document.getElementById(input).value
+let destino=document.getElementById(campo)
 
-let letras=texto.split("").join(" ")
-
-document.getElementById(campo).innerText=letras
+if(destino) destino.innerText=valor.toUpperCase()
 
 }
 
 function marcar(check,campo){
 
 let c=document.getElementById(check)
-
 let d=document.getElementById(campo)
 
-d.style.display=c.checked?"block":"none"
+if(c.checked){
+d.style.display="block"
+}else{
+d.style.display="none"
+}
 
 }
 
 function gerar(){
 
-escreverCaixas("nome","r_nome")
-escreverCaixas("cpf","r_cpf")
-escreverCaixas("sus","r_sus")
-escreverCaixas("nascimento","r_nascimento")
-escreverCaixas("mae","r_mae")
+escrever("nome","r_nome")
+escrever("cpf","r_cpf")
+escrever("sus","r_sus")
+escrever("nascimento","r_nascimento")
+escrever("mae","r_mae")
 
-escreverCaixas("municipio","r_municipio")
-escreverCaixas("unidade","r_unidade")
+escrever("municipio","r_municipio")
+escrever("unidade","r_unidade")
+escrever("prontuario","r_prontuario")
 
-escreverCaixas("logradouro","r_logradouro")
-escreverCaixas("bairro","r_bairro")
-escreverCaixas("cep","r_cep")
-escreverCaixas("telefone","r_telefone")
+escrever("logradouro","r_logradouro")
+escrever("numero","r_numero")
+escrever("complemento","r_complemento")
+escrever("bairro","r_bairro")
+escrever("cep","r_cep")
+escrever("telefone","r_telefone")
 
 marcar("rastreamento","c_rastreamento")
 marcar("diagnostica","c_diagnostica")
 marcar("nodulo","c_nodulo")
+marcar("secrecao","c_secrecao")
+marcar("historico","c_historico")
 
 document.getElementById("editor").style.display="block"
 
@@ -258,5 +290,4 @@ window.scrollTo(0,document.body.scrollHeight)
 </script>
 
 </body>
-
 </html>
