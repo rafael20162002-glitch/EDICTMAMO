@@ -67,6 +67,15 @@ padding:20px;
 color:#777;
 }
 
+/* CAMPOS DO FORMULÁRIO */
+
+.campo{
+position:absolute;
+font-size:16px;
+font-weight:bold;
+letter-spacing:6px;
+}
+
 /* DOCUMENTO */
 
 #documento{
@@ -88,13 +97,6 @@ position:absolute;
 top:0;
 left:0;
 width:100%;
-opacity:0.25;
-}
-
-.campo{
-position:absolute;
-font-size:14px;
-font-weight:bold;
 }
 
 /* impressão */
@@ -113,6 +115,10 @@ visibility:visible;
 position:absolute;
 left:0;
 top:0;
+}
+
+button{
+display:none;
 }
 
 }
@@ -167,23 +173,26 @@ Sistema interno de requisições médicas
 
 <img src="formulario1.png" class="formbg">
 
-<div class="campo" style="top:240px;left:120px" id="r_nome"></div>
+<!-- CAMPOS -->
 
-<div class="campo" style="top:260px;left:120px" id="r_cpf"></div>
+<div class="campo" style="top:259px;left:44px" id="r_nome"></div>
 
-<div class="campo" style="top:280px;left:120px" id="r_sus"></div>
+<div class="campo" style="top:290px;left:44px" id="r_cpf"></div>
 
-<div class="campo" style="top:300px;left:120px" id="r_nascimento"></div>
+<div class="campo" style="top:320px;left:44px" id="r_sus"></div>
 
-<div class="campo" style="top:320px;left:120px" id="r_municipio"></div>
+<div class="campo" style="top:350px;left:44px" id="r_nascimento"></div>
 
-<div class="campo" style="top:340px;left:120px" id="r_telefone"></div>
+<div class="campo" style="top:380px;left:44px" id="r_municipio"></div>
 
-<div class="campo" style="top:360px;left:120px" id="r_endereco"></div>
+<div class="campo" style="top:410px;left:44px" id="r_telefone"></div>
 
-<div class="campo" style="top:380px;left:120px" id="r_mae"></div>
+<div class="campo" style="top:440px;left:44px" id="r_endereco"></div>
+
+<div class="campo" style="top:470px;left:44px" id="r_mae"></div>
 
 </div>
+
 
 <!-- PAGINA 2 -->
 
@@ -216,7 +225,7 @@ Hospital Universitário Júlio Müller
 function gerar(){
 
 document.getElementById("r_nome").innerText =
-document.getElementById("nome").value
+document.getElementById("nome").value.toUpperCase()
 
 document.getElementById("r_cpf").innerText =
 document.getElementById("cpf").value
@@ -228,16 +237,16 @@ document.getElementById("r_nascimento").innerText =
 document.getElementById("nascimento").value
 
 document.getElementById("r_municipio").innerText =
-document.getElementById("municipio").value
+document.getElementById("municipio").value.toUpperCase()
 
 document.getElementById("r_telefone").innerText =
 document.getElementById("telefone").value
 
 document.getElementById("r_endereco").innerText =
-document.getElementById("endereco").value
+document.getElementById("endereco").value.toUpperCase()
 
 document.getElementById("r_mae").innerText =
-document.getElementById("mae").value
+document.getElementById("mae").value.toUpperCase()
 
 document.getElementById("documento").style.display="block"
 
@@ -249,5 +258,4 @@ window.scrollTo(0,document.body.scrollHeight)
 
 </body>
 
-</html>
 </html>
