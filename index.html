@@ -60,7 +60,6 @@ height:297mm;
 position:relative;
 margin:auto;
 background:white;
-border:1px solid #ccc;
 page-break-after:always;
 }
 
@@ -71,52 +70,25 @@ left:0;
 width:100%;
 }
 
-/* CAMPOS */
+/* CAIXAS DE TEXTO */
 
 .campo{
 position:absolute;
-font-size:15px;
+font-size:14px;
 font-weight:bold;
-letter-spacing:4px;
-cursor:move;
-background:rgba(255,255,0,0.3);
-padding:2px;
+letter-spacing:2px;
+max-width:600px;
 white-space:nowrap;
 }
 
+/* CHECKBOX */
+
 .check{
 position:absolute;
-font-size:22px;
-cursor:move;
-background:rgba(0,255,0,0.3);
+font-size:20px;
 }
 
-/* GRID AJUDA */
-
-.grid{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
-linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
-background-size:20px 20px;
-pointer-events:none;
-}
-
-#coords{
-position:fixed;
-bottom:10px;
-right:10px;
-background:black;
-color:white;
-padding:10px;
-font-size:12px;
-}
-
-/* IMPRESSÃO */
+/* IMPRESSAO */
 
 @media print{
 
@@ -126,18 +98,6 @@ visibility:hidden;
 
 #editor, #editor *{
 visibility:visible;
-}
-
-.grid{
-display:none;
-}
-
-.campo{
-background:none;
-}
-
-.check{
-background:none;
 }
 
 button{
@@ -160,23 +120,33 @@ Sistema de Requisição de Mamografia
 
 <h3>Dados da paciente</h3>
 
-<input id="nome" placeholder="Nome">
+<input id="nome" placeholder="Nome completo">
 
 <input id="cpf" placeholder="CPF">
 
 <input id="sus" placeholder="Cartão SUS">
 
+<input id="nascimento" placeholder="Data de nascimento">
+
 <input id="mae" placeholder="Nome da mãe">
 
-<h3>Unidade</h3>
+<h3>Dados da unidade</h3>
+
+<input id="uf" placeholder="UF">
 
 <input id="municipio" placeholder="Município">
 
-<input id="unidade" placeholder="Unidade de Saúde">
+<input id="unidade" placeholder="Unidade de saúde">
+
+<input id="prontuario" placeholder="Número do prontuário">
 
 <h3>Endereço</h3>
 
 <input id="logradouro" placeholder="Logradouro">
+
+<input id="numero" placeholder="Número">
+
+<input id="complemento" placeholder="Complemento">
 
 <input id="bairro" placeholder="Bairro">
 
@@ -190,13 +160,11 @@ Sistema de Requisição de Mamografia
 <label><input type="checkbox" id="diagnostica"> Diagnóstica</label><br>
 <label><input type="checkbox" id="nodulo"> Nódulo palpável</label><br>
 <label><input type="checkbox" id="secrecao"> Secreção papilar</label><br>
-<label><input type="checkbox" id="alteracao"> Alteração cutânea</label><br>
 <label><input type="checkbox" id="historico"> Histórico familiar</label><br>
-<label><input type="checkbox" id="dor"> Dor mamária</label>
 
-<br><br>
+<br>
 
-<button onclick="gerar()">Gerar Requisição</button>
+<button onclick="gerar()">Gerar requisição</button>
 
 </div>
 
@@ -208,156 +176,18 @@ Sistema de Requisição de Mamografia
 
 <img src="formulario1.png" class="formbg">
 
-<div class="grid"></div>
+<div class="campo" id="r_nome" style="top:240px;left:150px;width:500px"></div>
 
-<div class="campo" id="r_nome" style="top:245px;left:120px"></div>
-<div class="campo" id="r_cpf" style="top:275px;left:120px"></div>
-<div class="campo" id="r_sus" style="top:305px;left:120px"></div>
-<div class="campo" id="r_mae" style="top:335px;left:120px"></div>
-<div class="campo" id="r_municipio" style="top:365px;left:120px"></div>
-<div class="campo" id="r_unidade" style="top:395px;left:120px"></div>
-<div class="campo" id="r_logradouro" style="top:425px;left:120px"></div>
-<div class="campo" id="r_bairro" style="top:455px;left:120px"></div>
-<div class="campo" id="r_cep" style="top:485px;left:120px"></div>
-<div class="campo" id="r_telefone" style="top:515px;left:120px"></div>
+<div class="campo" id="r_cpf" style="top:270px;left:150px"></div>
 
-<!-- QUADRADOS -->
+<div class="campo" id="r_sus" style="top:300px;left:150px"></div>
 
-<div class="check" id="c_rastreamento" style="top:700px;left:105px">X</div>
-<div class="check" id="c_diagnostica" style="top:725px;left:105px">X</div>
-<div class="check" id="c_nodulo" style="top:750px;left:105px">X</div>
-<div class="check" id="c_secrecao" style="top:775px;left:105px">X</div>
-<div class="check" id="c_alteracao" style="top:800px;left:105px">X</div>
-<div class="check" id="c_historico" style="top:825px;left:105px">X</div>
-<div class="check" id="c_dor" style="top:850px;left:105px">X</div>
+<div class="campo" id="r_nascimento" style="top:330px;left:150px"></div>
 
-</div>
+<div class="campo" id="r_mae" style="top:360px;left:150px;width:500px"></div>
 
-<!-- PAGINA 2 -->
+<div class="campo" id="r_municipio" style="top:390px;left:150px"></div>
 
-<div class="pagina">
+<div class="campo" id="r_unidade" style="top:420px;left:150px;width:400px"></div>
 
-<img src="formulario2.png" class="formbg">
-
-<div class="grid"></div>
-
-</div>
-
-<center style="margin-top:30px">
-<button onclick="window.print()">Imprimir Requisição</button>
-</center>
-
-</div>
-
-<div id="coords">x:0 y:0</div>
-
-<script>
-
-/* FUNÇÃO SEGURA PARA ESCREVER */
-
-function escrever(inputId, campoId){
-
-var input = document.getElementById(inputId)
-var campo = document.getElementById(campoId)
-
-if(input && campo){
-campo.innerText = input.value.toUpperCase()
-}
-
-}
-
-/* MARCAR QUADRADO */
-
-function marcar(checkId, campoId){
-
-var check = document.getElementById(checkId)
-var campo = document.getElementById(campoId)
-
-if(check && campo){
-
-if(check.checked){
-campo.style.display="block"
-}else{
-campo.style.display="none"
-}
-
-}
-
-}
-
-/* GERAR REQUISIÇÃO */
-
-function gerar(){
-
-escrever("nome","r_nome")
-escrever("cpf","r_cpf")
-escrever("sus","r_sus")
-escrever("mae","r_mae")
-escrever("municipio","r_municipio")
-escrever("unidade","r_unidade")
-escrever("logradouro","r_logradouro")
-escrever("bairro","r_bairro")
-escrever("cep","r_cep")
-escrever("telefone","r_telefone")
-
-marcar("rastreamento","c_rastreamento")
-marcar("diagnostica","c_diagnostica")
-marcar("nodulo","c_nodulo")
-marcar("secrecao","c_secrecao")
-marcar("alteracao","c_alteracao")
-marcar("historico","c_historico")
-marcar("dor","c_dor")
-
-document.getElementById("editor").style.display="block"
-
-window.scrollTo(0,document.body.scrollHeight)
-
-}
-
-/* ARRASTAR CAMPOS */
-
-let campoSelecionado=null
-let offsetX=0
-let offsetY=0
-
-document.querySelectorAll(".campo,.check").forEach(function(campo){
-
-campo.addEventListener("mousedown",function(e){
-
-campoSelecionado=campo
-offsetX=e.offsetX
-offsetY=e.offsetY
-
-})
-
-})
-
-document.addEventListener("mousemove",function(e){
-
-if(campoSelecionado){
-
-let pagina=document.querySelector(".pagina").getBoundingClientRect()
-
-let x=e.clientX-pagina.left-offsetX
-let y=e.clientY-pagina.top-offsetY
-
-campoSelecionado.style.left=x+"px"
-campoSelecionado.style.top=y+"px"
-
-document.getElementById("coords").innerText="x:"+x+" y:"+y
-
-}
-
-})
-
-document.addEventListener("mouseup",function(){
-
-campoSelecionado=null
-
-})
-
-</script>
-
-</body>
-
-</html>
+<div class="campo" id="r_prontuario" style="top:450px;left:150px
