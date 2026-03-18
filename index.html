@@ -4,11 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Requisição de Mamografia</title>
+
 <style>
 body {
   font-family: Arial;
   background: #eef2f7;
   margin: 0;
+  padding: 0;
 }
 
 header {
@@ -69,20 +71,20 @@ button {
   position: absolute;
   font-size: 14px;
   font-weight: bold;
-  letter-spacing: 10px;
+  letter-spacing: 5px; /* reduzido pela metade */
   white-space: nowrap;
 }
 
 @media print {
-  body * {
-    visibility: hidden;
+  body {
+    margin: 0;
+    padding: 0;
   }
-
-  #editor,
-  #editor * {
-    visibility: visible;
+  .pagina {
+    page-break-after: always;
+    width: 210mm;
+    height: 297mm;
   }
-
   button {
     display: none;
   }
@@ -115,24 +117,28 @@ button {
 
 <div id="editor">
 
+<!-- PÁGINA 1 -->
 <div class="pagina">
-<img src="formulario1.png" class="formbg">
+  <img src="formulario1.png" class="formbg">
 
-<!-- CAMPOS POSICIONADOS -->
+  <div class="caixas" id="r_uf" style="top:84px;left:60px"></div>
+  <div class="caixas" id="r_unidade" style="top:114px;left:57px"></div>
+  <div class="caixas" id="r_municipio" style="top:143px;left:217px"></div>
+  <div class="caixas" id="r_sus" style="top:228px;left:58px"></div>
+  <div class="caixas" id="r_nome" style="top:254px;left:57px"></div>
+  <div class="caixas" id="r_mae" style="top:312px;left:57px"></div>
+  <div class="caixas" id="r_nascimento" style="top:377px;left:56px"></div>
+  <div class="caixas" id="r_logradouro" style="top:422px;left:55px"></div>
+  <div class="caixas" id="r_numero" style="top:452px;left:55px"></div>
+  <div class="caixas" id="r_complemento" style="top:453px;left:216px"></div>
+  <div class="caixas" id="r_bairro" style="top:481px;left:385px"></div>
+  <div class="caixas" id="r_cep" style="top:544px;left:56px"></div>
+</div>
 
-<div class="caixas" id="r_uf" style="top:84px;left:60px"></div>
-<div class="caixas" id="r_unidade" style="top:114px;left:57px"></div>
-<div class="caixas" id="r_municipio" style="top:143px;left:217px"></div>
-<div class="caixas" id="r_sus" style="top:228px;left:58px"></div>
-<div class="caixas" id="r_nome" style="top:254px;left:57px"></div>
-<div class="caixas" id="r_mae" style="top:312px;left:57px"></div>
-<div class="caixas" id="r_nascimento" style="top:377px;left:56px"></div>
-<div class="caixas" id="r_logradouro" style="top:422px;left:55px"></div>
-<div class="caixas" id="r_numero" style="top:452px;left:55px"></div>
-<div class="caixas" id="r_complemento" style="top:453px;left:216px"></div>
-<div class="caixas" id="r_bairro" style="top:481px;left:385px"></div>
-<div class="caixas" id="r_cep" style="top:544px;left:56px"></div>
-
+<!-- PÁGINA 2 -->
+<div class="pagina">
+  <img src="formulario2.png" class="formbg">
+  <!-- Aqui você pode adicionar caixas da segunda página, se necessário -->
 </div>
 
 <center style="margin-top:30px">
@@ -142,13 +148,13 @@ button {
 </div>
 
 <script>
-function escreverCaixas(input,campo){
-  let texto=document.getElementById(input).value.toUpperCase();
-  let letras=texto.split("").join(" ");
-  document.getElementById(campo).innerText=letras;
+function escreverCaixas(input, campo) {
+  let texto = document.getElementById(input).value.toUpperCase();
+  let letras = texto.split("").join(" "); // distribui as letras
+  document.getElementById(campo).innerText = letras;
 }
 
-function gerar(){
+function gerar() {
   escreverCaixas("uf","r_uf");
   escreverCaixas("unidade","r_unidade");
   escreverCaixas("municipio","r_municipio");
