@@ -53,6 +53,8 @@ display:none;
 margin-top:40px;
 }
 
+/* PAGINAS */
+
 .pagina{
 width:210mm;
 height:297mm;
@@ -60,6 +62,8 @@ position:relative;
 margin:auto;
 background:white;
 border:1px solid #ccc;
+margin-bottom:20px;
+page-break-after:always;
 }
 
 .formbg{
@@ -68,6 +72,8 @@ width:100%;
 top:0;
 left:0;
 }
+
+/* CAMPOS */
 
 .campo{
 position:absolute;
@@ -79,6 +85,8 @@ padding:2px;
 cursor:move;
 white-space:nowrap;
 }
+
+/* GRID */
 
 .grid{
 position:absolute;
@@ -102,6 +110,8 @@ color:white;
 padding:6px;
 font-size:12px;
 }
+
+/* IMPRESSÃO */
 
 @media print{
 
@@ -139,55 +149,24 @@ Sistema de Requisição de Mamografia
 
 <div class="container">
 
-<h3>Dados da Unidade</h3>
+<h3>Dados da paciente</h3>
 
-<input id="uf" placeholder="UF">
-<input id="cnes" placeholder="Código CNES">
-<input id="unidade" placeholder="Unidade de Saúde">
-<input id="cod_municipio" placeholder="Código do Município">
-<input id="municipio" placeholder="Município">
-<input id="prontuario" placeholder="Prontuário">
-
-<h3>Paciente</h3>
-
+<input id="nome" placeholder="Nome">
+<input id="cpf" placeholder="CPF">
 <input id="sus" placeholder="Cartão SUS">
-<input id="nome" placeholder="Nome da paciente">
-<input id="apelido" placeholder="Apelido">
 <input id="mae" placeholder="Nome da mãe">
 
-<input id="rg" placeholder="Identidade RG">
-<input id="orgao" placeholder="Órgão emissor">
-<input id="uf_doc" placeholder="UF documento">
-<input id="cpf" placeholder="CPF">
+<h3>Unidade</h3>
 
-<input id="nascimento" placeholder="Data nascimento">
-<input id="idade" placeholder="Idade">
-<input id="nacionalidade" placeholder="Nacionalidade">
+<input id="municipio" placeholder="Município">
+<input id="unidade" placeholder="Unidade de Saúde">
 
 <h3>Endereço</h3>
 
 <input id="logradouro" placeholder="Logradouro">
-<input id="numero" placeholder="Número">
-<input id="complemento" placeholder="Complemento">
 <input id="bairro" placeholder="Bairro">
-
-<input id="uf_end" placeholder="UF endereço">
-<input id="cod_mun_end" placeholder="Código município">
-<input id="mun_end" placeholder="Município endereço">
-
 <input id="cep" placeholder="CEP">
-<input id="ddd" placeholder="DDD">
 <input id="telefone" placeholder="Telefone">
-
-<input id="referencia" placeholder="Ponto de referência">
-
-<h3>Exame</h3>
-
-<input id="ultima_mamo" placeholder="Data última mamografia">
-<input id="data_solic" placeholder="Data solicitação">
-<input id="examinador" placeholder="Examinador">
-<input id="num_exame" placeholder="Número do exame">
-<input id="num_servico" placeholder="Número serviço mamografia">
 
 <button onclick="gerar()">Gerar Requisição</button>
 
@@ -195,13 +174,13 @@ Sistema de Requisição de Mamografia
 
 <div id="editor">
 
+<!-- PAGINA 1 -->
+
 <div class="pagina">
 
 <img src="formulario1.png" class="formbg">
 
 <div class="grid"></div>
-
-<!-- CAMPOS -->
 
 <div class="campo" id="r_nome" style="top:200px;left:120px"></div>
 <div class="campo" id="r_cpf" style="top:230px;left:120px"></div>
@@ -209,14 +188,25 @@ Sistema de Requisição de Mamografia
 <div class="campo" id="r_mae" style="top:290px;left:120px"></div>
 <div class="campo" id="r_municipio" style="top:320px;left:120px"></div>
 <div class="campo" id="r_unidade" style="top:350px;left:120px"></div>
-<div class="campo" id="r_logradouro" style="top:380px;left:120px"></div>
-<div class="campo" id="r_bairro" style="top:410px;left:120px"></div>
-<div class="campo" id="r_cep" style="top:440px;left:120px"></div>
-<div class="campo" id="r_telefone" style="top:470px;left:120px"></div>
 
 </div>
 
-<center style="margin-top:20px">
+<!-- PAGINA 2 -->
+
+<div class="pagina">
+
+<img src="formulario2.png" class="formbg">
+
+<div class="grid"></div>
+
+<div class="campo" id="r_logradouro" style="top:200px;left:120px"></div>
+<div class="campo" id="r_bairro" style="top:230px;left:120px"></div>
+<div class="campo" id="r_cep" style="top:260px;left:120px"></div>
+<div class="campo" id="r_telefone" style="top:290px;left:120px"></div>
+
+</div>
+
+<center>
 <button onclick="window.print()">Imprimir</button>
 </center>
 
@@ -291,5 +281,4 @@ campoSelecionado=null
 </script>
 
 </body>
-
 </html>
