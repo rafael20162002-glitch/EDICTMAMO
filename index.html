@@ -70,24 +70,31 @@ position:absolute;
 top:0;
 left:0;
 width:100%;
-height:100%;
-object-fit:contain;
 }
 
 /* CAMPOS */
 
 .campo{
 position:absolute;
-font-size:14px;
+font-size:15px;
 font-weight:bold;
 letter-spacing:6px;
-white-space:nowrap;
 cursor:move;
 background:rgba(255,255,0,0.3);
 padding:2px;
+white-space:nowrap;
 }
 
-/* GRID DE AJUDA */
+/* CHECKBOX */
+
+.check{
+position:absolute;
+font-size:22px;
+cursor:move;
+background:rgba(0,255,0,0.3);
+}
+
+/* GRID */
 
 .grid{
 position:absolute;
@@ -102,15 +109,13 @@ background-size:20px 20px;
 pointer-events:none;
 }
 
-/* COORDENADAS */
-
 #coords{
 position:fixed;
 bottom:10px;
 right:10px;
 background:black;
 color:white;
-padding:8px;
+padding:10px;
 font-size:12px;
 }
 
@@ -134,6 +139,10 @@ display:none;
 background:none;
 }
 
+.check{
+background:none;
+}
+
 button{
 display:none;
 }
@@ -152,9 +161,17 @@ Sistema de Requisição de Mamografia
 
 <div class="container">
 
-<h3>Dados da paciente</h3>
+<h3>Paciente</h3>
 
+<input id="sus" placeholder="Cartão SUS">
 <input id="nome" placeholder="Nome da paciente">
+<input id="mae" placeholder="Nome completo da mãe">
+
+<h3>Endereço</h3>
+
+<input id="logradouro" placeholder="Logradouro">
+<input id="complemento" placeholder="Complemento">
+<input id="municipio" placeholder="Município">
 
 <button onclick="gerar()">Gerar Requisição</button>
 
@@ -170,9 +187,19 @@ Sistema de Requisição de Mamografia
 
 <div class="grid"></div>
 
-<!-- NOME DA PACIENTE -->
+<!-- CAMPOS -->
+
+<div class="campo" id="r_sus" style="left:53.25mm; top:225.5mm;"></div>
 
 <div class="campo" id="r_nome" style="left:54.25mm; top:227.125mm;"></div>
+
+<div class="campo" id="r_mae" style="left:56.25mm; top:312mm;"></div>
+
+<div class="campo" id="r_logradouro" style="left:57.25mm; top:423mm;"></div>
+
+<div class="campo" id="r_complemento" style="left:216.25mm; top:454mm;"></div>
+
+<div class="campo" id="r_municipio" style="left:217.25mm; top:516mm;"></div>
 
 </div>
 
@@ -186,8 +213,8 @@ Sistema de Requisição de Mamografia
 
 </div>
 
-<center style="margin-top:20px">
-<button onclick="window.print()">Imprimir</button>
+<center style="margin-top:30px">
+<button onclick="window.print()">Imprimir Requisição</button>
 </center>
 
 </div>
@@ -196,13 +223,29 @@ Sistema de Requisição de Mamografia
 
 <script>
 
-/* GERAR REQUISIÇÃO */
+/* FUNÇÃO ESCREVER */
+
+function escrever(inputId,campoId){
+
+var input=document.getElementById(inputId)
+var campo=document.getElementById(campoId)
+
+if(input && campo){
+campo.innerText=input.value.toUpperCase()
+}
+
+}
+
+/* GERAR */
 
 function gerar(){
 
-let nome = document.getElementById("nome").value
-
-document.getElementById("r_nome").innerText = nome.toUpperCase()
+escrever("sus","r_sus")
+escrever("nome","r_nome")
+escrever("mae","r_mae")
+escrever("logradouro","r_logradouro")
+escrever("complemento","r_complemento")
+escrever("municipio","r_municipio")
 
 document.getElementById("editor").style.display="block"
 
@@ -232,7 +275,7 @@ document.addEventListener("mousemove",function(e){
 
 if(campoSelecionado){
 
-let pagina=campoSelecionado.closest(".pagina").getBoundingClientRect()
+let pagina=document.querySelector(".pagina").getBoundingClientRect()
 
 let x=e.clientX-pagina.left-offsetX
 let y=e.clientY-pagina.top-offsetY
