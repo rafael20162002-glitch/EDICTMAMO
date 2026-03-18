@@ -52,8 +52,9 @@ width:210mm;
 height:297mm;
 position:relative;
 margin:auto;
-border:1px solid #ccc;
 background:white;
+border:1px solid #ccc;
+page-break-after:always;
 }
 
 .formbg{
@@ -63,14 +64,17 @@ left:0;
 width:100%;
 }
 
+/* CAMPOS */
+
 .campo{
 position:absolute;
-font-size:16px;
+font-size:15px;
 font-weight:bold;
-letter-spacing:6px;
+letter-spacing:4px;
 cursor:move;
 background:rgba(255,255,0,0.3);
 padding:2px;
+white-space:nowrap;
 }
 
 .check{
@@ -79,6 +83,8 @@ font-size:22px;
 cursor:move;
 background:rgba(0,255,0,0.3);
 }
+
+/* GRID */
 
 .grid{
 position:absolute;
@@ -127,6 +133,10 @@ background:none;
 }
 
 .grid{
+display:none;
+}
+
+button{
 display:none;
 }
 
@@ -183,17 +193,11 @@ Sistema de Requisição de Mamografia
 <h3>Indicação clínica</h3>
 
 <label><input type="checkbox" id="rastreamento"> Rastreamento</label><br>
-
 <label><input type="checkbox" id="diagnostica"> Diagnóstica</label><br>
-
 <label><input type="checkbox" id="nodulo"> Nódulo palpável</label><br>
-
 <label><input type="checkbox" id="secrecao"> Secreção papilar</label><br>
-
 <label><input type="checkbox" id="alteracao"> Alteração cutânea</label><br>
-
 <label><input type="checkbox" id="historico"> Histórico familiar</label><br>
-
 <label><input type="checkbox" id="dor"> Dor mamária</label>
 
 <br><br>
@@ -204,146 +208,21 @@ Sistema de Requisição de Mamografia
 
 <div id="editor">
 
+<!-- PAGINA 1 -->
+
 <div class="pagina">
 
 <img src="formulario1.png" class="formbg">
 
 <div class="grid"></div>
 
-<div class="campo" id="r_nome" style="top:260px;left:60px"></div>
-
-<div class="campo" id="r_cpf" style="top:300px;left:60px"></div>
-
-<div class="campo" id="r_sus" style="top:340px;left:60px"></div>
-
-<div class="campo" id="r_mae" style="top:380px;left:60px"></div>
-
-<div class="campo" id="r_municipio" style="top:420px;left:60px"></div>
-
-<div class="campo" id="r_unidade" style="top:460px;left:60px"></div>
-
-<div class="campo" id="r_logradouro" style="top:500px;left:60px"></div>
-
-<div class="campo" id="r_bairro" style="top:540px;left:60px"></div>
-
-<div class="campo" id="r_cep" style="top:580px;left:60px"></div>
-
-<div class="campo" id="r_telefone" style="top:620px;left:60px"></div>
-
-<!-- MARCAÇÃO DOS QUADRADOS -->
-
-<div class="check" id="c_rastreamento" style="top:700px;left:120px">X</div>
-
-<div class="check" id="c_diagnostica" style="top:730px;left:120px">X</div>
-
-<div class="check" id="c_nodulo" style="top:760px;left:120px">X</div>
-
-<div class="check" id="c_secrecao" style="top:790px;left:120px">X</div>
-
-<div class="check" id="c_alteracao" style="top:820px;left:120px">X</div>
-
-<div class="check" id="c_historico" style="top:850px;left:120px">X</div>
-
-<div class="check" id="c_dor" style="top:880px;left:120px">X</div>
-
-</div>
-
-</div>
-
-<div id="coords">
-x:0 y:0
-</div>
-
-<script>
-
-function set(input,campo){
-
-document.getElementById(campo).innerText =
-document.getElementById(input).value.toUpperCase()
-
-}
-
-function marcar(idCheck,idCampo){
-
-if(document.getElementById(idCheck).checked){
-
-document.getElementById(idCampo).style.display="block"
-
-}else{
-
-document.getElementById(idCampo).style.display="none"
-
-}
-
-}
-
-function gerar(){
-
-set("nome","r_nome")
-set("cpf","r_cpf")
-set("sus","r_sus")
-set("mae","r_mae")
-set("municipio","r_municipio")
-set("unidade","r_unidade")
-set("logradouro","r_logradouro")
-set("bairro","r_bairro")
-set("cep","r_cep")
-set("telefone","r_telefone")
-
-marcar("rastreamento","c_rastreamento")
-marcar("diagnostica","c_diagnostica")
-marcar("nodulo","c_nodulo")
-marcar("secrecao","c_secrecao")
-marcar("alteracao","c_alteracao")
-marcar("historico","c_historico")
-marcar("dor","c_dor")
-
-document.getElementById("editor").style.display="block"
-
-}
-
-let campoSelecionado=null
-let offsetX=0
-let offsetY=0
-
-document.querySelectorAll(".campo,.check").forEach(campo=>{
-
-campo.addEventListener("mousedown",e=>{
-
-campoSelecionado=campo
-offsetX=e.offsetX
-offsetY=e.offsetY
-
-})
-
-})
-
-document.addEventListener("mousemove",e=>{
-
-if(campoSelecionado){
-
-let pagina=document.querySelector(".pagina").getBoundingClientRect()
-
-let x=e.clientX-pagina.left-offsetX
-let y=e.clientY-pagina.top-offsetY
-
-campoSelecionado.style.left=x+"px"
-campoSelecionado.style.top=y+"px"
-
-document.getElementById("coords").innerText="x:"+x+" y:"+y
-
-}
-
-})
-
-document.addEventListener("mouseup",()=>{
-
-campoSelecionado=null
-
-})
-
-</script>
-
-</body>
-
-</html>
+<div class="campo" id="r_nome" style="top:245px;left:120px"></div>
+<div class="campo" id="r_cpf" style="top:275px;left:120px"></div>
+<div class="campo" id="r_sus" style="top:305px;left:120px"></div>
+<div class="campo" id="r_mae" style="top:335px;left:120px"></div>
+<div class="campo" id="r_municipio" style="top:365px;left:120px"></div>
+<div class="campo" id="r_unidade" style="top:395px;left:120px"></div>
+<div class="campo" id="r_logradouro" style="top:425px;left:120px"></div>
+<div class="campo" id="r_bairro" style="top:455px;left:120px"></div>
+<div class="campo" id="r_cep" style="top:485px;left:120px"></div>
+<div class="campo" id="r_telefone" style="top:515px;left:120
