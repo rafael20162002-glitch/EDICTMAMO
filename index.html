@@ -71,6 +71,207 @@ button {
   position: absolute;
   font-size: 14px;
   font-weight: bold;
+  letter-spacing: 3px; /* espaçamento reduzido */
+  white-space: nowrap;
+  cursor: move; /* indica que é arrastável */
+}
+
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .pagina {
+    page-break-after: always;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+  }
+  button {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+<header>Sistema de Requisição de Mamografia</header>
+
+<div class="container">
+<h3>Preencha os dados</h3>
+
+<input id="uf" placeholder="UF">
+<input id="unidade" placeholder="Unidade de Saúde">
+<input id="municipio" placeholder="Município">
+<input id="sus" placeholder="Cartão SUS">
+<input id="nome" placeholder="Nome completo do paciente">
+<input id="mae" placeholder="Nome completo da mãe">
+<input id="nascimento" placeholder="Data de nascimento">
+<input id="logradouro" placeholder="Logradouro">
+<input id="numero" placeholder="Número">
+<input id="complemento" placeholder="Complemento">
+<input id="bairro" placeholder="Bairro">
+<input id="cep" placeholder="CEP">
+
+<br>
+<button onclick="gerar()">Gerar Requisição</button>
+</div>
+
+<div id="editor">
+
+<!-- PÁGINA 1 -->
+<div class="pagina">
+  <img src="formulario1.png" class="formbg">
+
+  <div class="caixas" id="r_uf" style="top:84px;left:60px"></div>
+  <div class="caixas" id="r_unidade" style="top:114px;left:57px"></div>
+  <div class="caixas" id="r_municipio" style="top:143px;left:217px"></div>
+  <div class="caixas" id="r_sus" style="top:228px;left:58px"></div>
+  <div class="caixas" id="r_nome" style="top:254px;left:57px"></div>
+  <div class="caixas" id="r_mae" style="top:312px;left:57px"></div>
+  <div class="caixas" id="r_nascimento" style="top:377px;left:56px"></div>
+  <div class="caixas" id="r_logradouro" style="top:422px;left:55px"></div>
+  <div class="caixas" id="r_numero" style="top:452px;left:55px"></div>
+  <div class="caixas" id="r_complemento" style="top:453px;left:216px"></div>
+  <div class="caixas" id="r_bairro" style="top:481px;left:385px"></div>
+  <div class="caixas" id="r_cep" style="top:544px;left:56px"></div>
+</div>
+
+<!-- PÁGINA 2 -->
+<div class="pagina">
+  <img src="formulario2.png" class="formbg">
+  <!-- Campos extras da segunda página podem ser adicionados aqui -->
+</div>
+
+<center style="margin-top:30px">
+<button onclick="window.print()">Imprimir Requisição</button>
+</center>
+
+</div>
+
+<script>
+function escreverCaixas(input, campo) {
+  let texto = document.getElementById(input).value.toUpperCase();
+  let letras = texto.split("").join(" "); // distribui as letras
+  document.getElementById(campo).innerText = letras;
+}
+
+function gerar() {
+  escreverCaixas("uf","r_uf");
+  escreverCaixas("unidade","r_unidade");
+  escreverCaixas("municipio","r_municipio");
+  escreverCaixas("sus","r_sus");
+  escreverCaixas("nome","r_nome");
+  escreverCaixas("mae","r_mae");
+  escreverCaixas("nascimento","r_nascimento");
+  escreverCaixas("logradouro","r_logradouro");
+  escreverCaixas("numero","r_numero");
+  escreverCaixas("complemento","r_complemento");
+  escreverCaixas("bairro","r_bairro");
+  escreverCaixas("cep","r_cep");
+
+  document.getElementById("editor").style.display="block";
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+// Código para tornar os campos arrastáveis
+const caixas = document.querySelectorAll('.caixas');
+caixas.forEach(caixa => {
+  let isDragging = false;
+  let offsetX, offsetY;
+
+  caixa.addEventListener('mousedown', e => {
+    isDragging = true;
+    offsetX = e.clientX - caixa.offsetLeft;
+    offsetY = e.clientY - caixa.offsetTop;
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    caixa.style.left = (e.clientX - offsetX) + 'px';
+    caixa.style.top = (e.clientY - offsetY) + 'px';
+  });
+
+  document.addEventListener('mouseup', e => {
+    if (isDragging) isDragging = false;
+  });
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Requisição de Mamografia</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #eef2f7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #003366;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  background: #0066cc;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#editor {
+  display: none;
+  margin-top: 40px;
+}
+
+.pagina {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  margin: auto;
+  background: white;
+  page-break-after: always;
+}
+
+.formbg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.caixas {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
   letter-spacing: 5px; /* reduzido pela metade */
   white-space: nowrap;
 }
