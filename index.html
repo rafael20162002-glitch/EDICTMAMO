@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Requisição de Mamografia</title>
+<title>Sistema de Requisição de Mamografia</title>
 
 <style>
 
@@ -33,8 +33,8 @@ border-radius:8px;
 
 input{
 width:100%;
-padding:10px;
-margin-bottom:10px;
+padding:8px;
+margin-bottom:8px;
 text-transform:uppercase;
 }
 
@@ -43,17 +43,15 @@ background:#0066cc;
 color:white;
 border:none;
 padding:12px;
-font-size:16px;
 border-radius:5px;
 cursor:pointer;
+margin-top:10px;
 }
 
 #editor{
 display:none;
 margin-top:40px;
 }
-
-/* PAGINAS */
 
 .pagina{
 width:210mm;
@@ -62,39 +60,25 @@ position:relative;
 margin:auto;
 background:white;
 border:1px solid #ccc;
-page-break-after:always;
 }
 
 .formbg{
 position:absolute;
+width:100%;
 top:0;
 left:0;
-width:100%;
 }
-
-/* CAMPOS */
 
 .campo{
 position:absolute;
-font-size:15px;
+font-size:14px;
 font-weight:bold;
-letter-spacing:6px;
-cursor:move;
+letter-spacing:2px;
 background:rgba(255,255,0,0.3);
 padding:2px;
+cursor:move;
 white-space:nowrap;
 }
-
-/* CHECKBOX */
-
-.check{
-position:absolute;
-font-size:22px;
-cursor:move;
-background:rgba(0,255,0,0.3);
-}
-
-/* GRID */
 
 .grid{
 position:absolute;
@@ -115,11 +99,9 @@ bottom:10px;
 right:10px;
 background:black;
 color:white;
-padding:10px;
+padding:6px;
 font-size:12px;
 }
-
-/* IMPRESSÃO */
 
 @media print{
 
@@ -136,10 +118,6 @@ display:none;
 }
 
 .campo{
-background:none;
-}
-
-.check{
 background:none;
 }
 
@@ -161,25 +139,61 @@ Sistema de Requisição de Mamografia
 
 <div class="container">
 
+<h3>Dados da Unidade</h3>
+
+<input id="uf" placeholder="UF">
+<input id="cnes" placeholder="Código CNES">
+<input id="unidade" placeholder="Unidade de Saúde">
+<input id="cod_municipio" placeholder="Código do Município">
+<input id="municipio" placeholder="Município">
+<input id="prontuario" placeholder="Prontuário">
+
 <h3>Paciente</h3>
 
 <input id="sus" placeholder="Cartão SUS">
 <input id="nome" placeholder="Nome da paciente">
-<input id="mae" placeholder="Nome completo da mãe">
+<input id="apelido" placeholder="Apelido">
+<input id="mae" placeholder="Nome da mãe">
+
+<input id="rg" placeholder="Identidade RG">
+<input id="orgao" placeholder="Órgão emissor">
+<input id="uf_doc" placeholder="UF documento">
+<input id="cpf" placeholder="CPF">
+
+<input id="nascimento" placeholder="Data nascimento">
+<input id="idade" placeholder="Idade">
+<input id="nacionalidade" placeholder="Nacionalidade">
 
 <h3>Endereço</h3>
 
 <input id="logradouro" placeholder="Logradouro">
+<input id="numero" placeholder="Número">
 <input id="complemento" placeholder="Complemento">
-<input id="municipio" placeholder="Município">
+<input id="bairro" placeholder="Bairro">
+
+<input id="uf_end" placeholder="UF endereço">
+<input id="cod_mun_end" placeholder="Código município">
+<input id="mun_end" placeholder="Município endereço">
+
+<input id="cep" placeholder="CEP">
+<input id="ddd" placeholder="DDD">
+<input id="telefone" placeholder="Telefone">
+
+<input id="referencia" placeholder="Ponto de referência">
+
+<h3>Exame</h3>
+
+<input id="ultima_mamo" placeholder="Data última mamografia">
+<input id="data_solic" placeholder="Data solicitação">
+<input id="examinador" placeholder="Examinador">
+<input id="num_exame" placeholder="Número do exame">
+<input id="num_servico" placeholder="Número serviço mamografia">
 
 <button onclick="gerar()">Gerar Requisição</button>
 
 </div>
 
 <div id="editor">
-
-<!-- PAGINA 1 -->
 
 <div class="pagina">
 
@@ -189,32 +203,21 @@ Sistema de Requisição de Mamografia
 
 <!-- CAMPOS -->
 
-<div class="campo" id="r_sus" style="left:53.25mm; top:225.5mm;"></div>
-
-<div class="campo" id="r_nome" style="left:54.25mm; top:227.125mm;"></div>
-
-<div class="campo" id="r_mae" style="left:56.25mm; top:312mm;"></div>
-
-<div class="campo" id="r_logradouro" style="left:57.25mm; top:423mm;"></div>
-
-<div class="campo" id="r_complemento" style="left:216.25mm; top:454mm;"></div>
-
-<div class="campo" id="r_municipio" style="left:217.25mm; top:516mm;"></div>
-
-</div>
-
-<!-- PAGINA 2 -->
-
-<div class="pagina">
-
-<img src="formulario2.png" class="formbg">
-
-<div class="grid"></div>
+<div class="campo" id="r_nome" style="top:200px;left:120px"></div>
+<div class="campo" id="r_cpf" style="top:230px;left:120px"></div>
+<div class="campo" id="r_sus" style="top:260px;left:120px"></div>
+<div class="campo" id="r_mae" style="top:290px;left:120px"></div>
+<div class="campo" id="r_municipio" style="top:320px;left:120px"></div>
+<div class="campo" id="r_unidade" style="top:350px;left:120px"></div>
+<div class="campo" id="r_logradouro" style="top:380px;left:120px"></div>
+<div class="campo" id="r_bairro" style="top:410px;left:120px"></div>
+<div class="campo" id="r_cep" style="top:440px;left:120px"></div>
+<div class="campo" id="r_telefone" style="top:470px;left:120px"></div>
 
 </div>
 
-<center style="margin-top:30px">
-<button onclick="window.print()">Imprimir Requisição</button>
+<center style="margin-top:20px">
+<button onclick="window.print()">Imprimir</button>
 </center>
 
 </div>
@@ -223,29 +226,19 @@ Sistema de Requisição de Mamografia
 
 <script>
 
-/* FUNÇÃO ESCREVER */
-
-function escrever(inputId,campoId){
-
-var input=document.getElementById(inputId)
-var campo=document.getElementById(campoId)
-
-if(input && campo){
-campo.innerText=input.value.toUpperCase()
-}
-
-}
-
-/* GERAR */
+/* GERAR REQUISIÇÃO */
 
 function gerar(){
 
-escrever("sus","r_sus")
-escrever("nome","r_nome")
-escrever("mae","r_mae")
-escrever("logradouro","r_logradouro")
-escrever("complemento","r_complemento")
-escrever("municipio","r_municipio")
+document.querySelectorAll("input").forEach(function(input){
+
+let campo=document.getElementById("r_"+input.id)
+
+if(campo){
+campo.innerText=input.value.toUpperCase()
+}
+
+})
 
 document.getElementById("editor").style.display="block"
 
@@ -275,7 +268,7 @@ document.addEventListener("mousemove",function(e){
 
 if(campoSelecionado){
 
-let pagina=document.querySelector(".pagina").getBoundingClientRect()
+let pagina=campoSelecionado.closest(".pagina").getBoundingClientRect()
 
 let x=e.clientX-pagina.left-offsetX
 let y=e.clientY-pagina.top-offsetY
