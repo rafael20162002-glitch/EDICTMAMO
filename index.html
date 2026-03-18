@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="UTF-8">
@@ -43,16 +44,14 @@ color:white;
 border:none;
 padding:12px;
 border-radius:5px;
-margin-top:10px;
 cursor:pointer;
+margin-top:10px;
 }
 
 #editor{
 display:none;
 margin-top:40px;
 }
-
-/* PAGINA */
 
 .pagina{
 width:210mm;
@@ -61,7 +60,6 @@ position:relative;
 margin:auto;
 background:white;
 border:1px solid #ccc;
-page-break-after:always;
 }
 
 .formbg{
@@ -71,20 +69,16 @@ top:0;
 left:0;
 }
 
-/* CAMPOS */
-
 .campo{
 position:absolute;
 font-size:14px;
 font-weight:bold;
-letter-spacing:3px;
+letter-spacing:2px;
 background:rgba(255,255,0,0.3);
-cursor:move;
 padding:2px;
+cursor:move;
 white-space:nowrap;
 }
-
-/* GRID */
 
 .grid{
 position:absolute;
@@ -105,11 +99,9 @@ bottom:10px;
 right:10px;
 background:black;
 color:white;
-padding:8px;
+padding:6px;
 font-size:12px;
 }
-
-/* PRINT */
 
 @media print{
 
@@ -211,35 +203,93 @@ Sistema de Requisição de Mamografia
 
 <!-- CAMPOS -->
 
-<div class="campo" id="r_uf" style="top:40px;left:50px"></div>
-<div class="campo" id="r_cnes" style="top:60px;left:50px"></div>
-<div class="campo" id="r_unidade" style="top:80px;left:50px"></div>
-<div class="campo" id="r_cod_municipio" style="top:100px;left:50px"></div>
-<div class="campo" id="r_municipio" style="top:120px;left:50px"></div>
-<div class="campo" id="r_prontuario" style="top:140px;left:50px"></div>
+<div class="campo" id="r_nome" style="top:200px;left:120px"></div>
+<div class="campo" id="r_cpf" style="top:230px;left:120px"></div>
+<div class="campo" id="r_sus" style="top:260px;left:120px"></div>
+<div class="campo" id="r_mae" style="top:290px;left:120px"></div>
+<div class="campo" id="r_municipio" style="top:320px;left:120px"></div>
+<div class="campo" id="r_unidade" style="top:350px;left:120px"></div>
+<div class="campo" id="r_logradouro" style="top:380px;left:120px"></div>
+<div class="campo" id="r_bairro" style="top:410px;left:120px"></div>
+<div class="campo" id="r_cep" style="top:440px;left:120px"></div>
+<div class="campo" id="r_telefone" style="top:470px;left:120px"></div>
 
-<div class="campo" id="r_sus" style="top:170px;left:50px"></div>
-<div class="campo" id="r_nome" style="top:190px;left:50px"></div>
-<div class="campo" id="r_apelido" style="top:210px;left:50px"></div>
-<div class="campo" id="r_mae" style="top:230px;left:50px"></div>
+</div>
 
-<div class="campo" id="r_rg" style="top:260px;left:50px"></div>
-<div class="campo" id="r_orgao" style="top:280px;left:50px"></div>
-<div class="campo" id="r_uf_doc" style="top:300px;left:50px"></div>
-<div class="campo" id="r_cpf" style="top:320px;left:50px"></div>
+<center style="margin-top:20px">
+<button onclick="window.print()">Imprimir</button>
+</center>
 
-<div class="campo" id="r_nascimento" style="top:350px;left:50px"></div>
-<div class="campo" id="r_idade" style="top:370px;left:50px"></div>
-<div class="campo" id="r_nacionalidade" style="top:390px;left:50px"></div>
+</div>
 
-<div class="campo" id="r_logradouro" style="top:420px;left:50px"></div>
-<div class="campo" id="r_numero" style="top:440px;left:50px"></div>
-<div class="campo" id="r_complemento" style="top:460px;left:50px"></div>
-<div class="campo" id="r_bairro" style="top:480px;left:50px"></div>
+<div id="coords">x:0 y:0</div>
 
-<div class="campo" id="r_uf_end" style="top:510px;left:50px"></div>
-<div class="campo" id="r_cod_mun_end" style="top:530px;left:50px"></div>
-<div class="campo" id="r_mun_end" style="top:550px;left:50px"></div>
+<script>
 
-<div class="campo" id="r_cep" style="top:580px;left:50px"></div>
-<div class="campo" id="r_ddd"
+/* GERAR REQUISIÇÃO */
+
+function gerar(){
+
+document.querySelectorAll("input").forEach(function(input){
+
+let campo=document.getElementById("r_"+input.id)
+
+if(campo){
+campo.innerText=input.value.toUpperCase()
+}
+
+})
+
+document.getElementById("editor").style.display="block"
+
+window.scrollTo(0,document.body.scrollHeight)
+
+}
+
+/* ARRASTAR CAMPOS */
+
+let campoSelecionado=null
+let offsetX=0
+let offsetY=0
+
+document.querySelectorAll(".campo").forEach(function(campo){
+
+campo.addEventListener("mousedown",function(e){
+
+campoSelecionado=campo
+offsetX=e.offsetX
+offsetY=e.offsetY
+
+})
+
+})
+
+document.addEventListener("mousemove",function(e){
+
+if(campoSelecionado){
+
+let pagina=campoSelecionado.closest(".pagina").getBoundingClientRect()
+
+let x=e.clientX-pagina.left-offsetX
+let y=e.clientY-pagina.top-offsetY
+
+campoSelecionado.style.left=x+"px"
+campoSelecionado.style.top=y+"px"
+
+document.getElementById("coords").innerText="x:"+x+" y:"+y
+
+}
+
+})
+
+document.addEventListener("mouseup",function(){
+
+campoSelecionado=null
+
+})
+
+</script>
+
+</body>
+
+</html>
